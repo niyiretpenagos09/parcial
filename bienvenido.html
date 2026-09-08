@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bienvenido</title>
+
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+    <div class="formulario">
+
+        <h1>¡Bienvenido!</h1>
+
+        <p id="mensaje"></p>
+
+    </div>
+
+
+    <script>
+
+        const nombre = localStorage.getItem("nombreUsuario");
+
+        document.getElementById("mensaje").textContent =
+            "Bienvenido, " + nombre +
+            ", te enviaremos más información al correo de lo que deseas estudiar.";
+
+    </script>
+
+</body>
+
+</html>
