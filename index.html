@@ -1,9 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscripción a Curso</title>
+
+    <title>Inscripción a Curso Virtual</title>
 
     <link rel="stylesheet" href="estilos.css">
 </head>
@@ -19,12 +22,16 @@
         <form id="formularioCurso">
 
             <label for="nombre">Nombre completo:</label>
-            <input type="text" id="nombre" required>
+            <input
+                type="text"
+                id="nombre"
+                required
+            >
 
             <label for="telefono">Teléfono:</label>
-            <input 
-                type="tel" 
-                id="telefono" 
+            <input
+                type="tel"
+                id="telefono"
                 maxlength="10"
                 pattern="[0-9]{10}"
                 placeholder="Ejemplo: 3001234567"
@@ -32,15 +39,51 @@
             >
 
             <label for="fechaNacimiento">Fecha de nacimiento:</label>
-            <input type="date" id="fechaNacimiento" required>
+            <input
+                type="date"
+                id="fechaNacimiento"
+                required
+            >
 
             <label for="correo">Correo electrónico:</label>
-            <input type="email" id="correo" required>
+            <input
+                type="email"
+                id="correo"
+                required
+            >
 
             <label for="ciudad">Ciudad:</label>
-            <input type="text" id="ciudad" required>
+            <input
+                type="text"
+                id="ciudad"
+                required
+            >
+
+            <label>¿Eres estudiante o profesor?</label>
+
+            <div class="opciones">
+                <label class="opcion">
+                    <input
+                        type="radio"
+                        name="tipoUsuario"
+                        value="Estudiante"
+                        required
+                    >
+                    Estudiante
+                </label>
+
+                <label class="opcion">
+                    <input
+                        type="radio"
+                        name="tipoUsuario"
+                        value="Profesor"
+                    >
+                    Profesor
+                </label>
+            </div>
 
             <label for="curso">Curso al que desea ingresar:</label>
+
             <select id="curso" required>
                 <option value="">Seleccione un curso</option>
                 <option value="Inglés">Inglés</option>
@@ -56,77 +99,129 @@
 
     <script>
 
-    // Limpiar el formulario cada vez que se carga la página
-    window.addEventListener("pageshow", function () {
-        document.getElementById("formularioCurso").reset();
-    });
+        // Limpiar el formulario al cargar o regresar a la página
+
+        window.addEventListener("pageshow", function () {
+            document.getElementById("formularioCurso").reset();
+        });
 
 
-    // Evitar que se puedan seleccionar fechas de personas menores de edad
-    const fechaNacimiento = document.getElementById("fechaNacimiento");
+        // Configurar la fecha máxima para mayores de edad
 
-    const hoy = new Date();
+        const fechaNacimiento =
+            document.getElementById("fechaNacimiento");
 
-    const fechaMaxima = new Date(
-        hoy.getFullYear() - 18,
-        hoy.getMonth(),
-        hoy.getDate()
-    );
+        const hoy = new Date();
 
-    fechaNacimiento.max = fechaMaxima.toISOString().split("T")[0];
+        const fechaMaxima = new Date(
+            hoy.getFullYear() - 18,
+            hoy.getMonth(),
+            hoy.getDate()
+        );
 
-
-    // Validar el formulario
-    document.getElementById("formularioCurso").addEventListener("submit", function(event) {
-
-        event.preventDefault();
-
-        const nombre = document.getElementById("nombre").value;
-        const telefono = document.getElementById("telefono").value;
-        const fecha = document.getElementById("fechaNacimiento").value;
-        const correo = document.getElementById("correo").value;
-        const ciudad = document.getElementById("ciudad").value;
-        const curso = document.getElementById("curso").value;
+        fechaNacimiento.max =
+            fechaMaxima.toISOString().split("T")[0];
 
 
-        // Validar teléfono
-        if (!/^\d{10}$/.test(telefono)) {
-            alert("El teléfono debe tener exactamente 10 dígitos.");
-            return;
-        }
+        // Validar formulario
+
+        document
+            .getElementById("formularioCurso")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                const nombre =
+                    document.getElementById("nombre").value;
+
+                const telefono =
+                    document.getElementById("telefono").value;
+
+                const fecha =
+                    document.getElementById("fechaNacimiento").value;
+
+                const correo =
+                    document.getElementById("correo").value;
+
+                const ciudad =
+                    document.getElementById("ciudad").value;
+
+                const curso =
+                    document.getElementById("curso").value;
 
 
-        // Calcular edad
-        const nacimiento = new Date(fecha);
+                // Obtener si es estudiante o profesor
 
-        let edad = hoy.getFullYear() - nacimiento.getFullYear();
-
-        const diferenciaMes = hoy.getMonth() - nacimiento.getMonth();
-
-        if (
-            diferenciaMes < 0 ||
-            (diferenciaMes === 0 && hoy.getDate() < nacimiento.getDate())
-        ) {
-            edad--;
-        }
+                const tipoUsuario =
+                    document.querySelector(
+                        'input[name="tipoUsuario"]:checked'
+                    ).value;
 
 
-        // Validar mayoría de edad
-        if (edad < 18) {
-            alert("Debes ser mayor de edad para ingresar al curso.");
-            return;
-        }
+                // Validar teléfono
+
+                if (!/^\d{10}$/.test(telefono)) {
+
+                    alert(
+                        "El teléfono debe tener exactamente 10 dígitos."
+                    );
+
+                    return;
+                }
 
 
-        // Guardar únicamente el nombre para la página de bienvenida
-        localStorage.setItem("nombreUsuario", nombre);
+                // Calcular edad
 
-        // Ir a la página de bienvenida
-        window.location.href = "bienvenido.html";
+                const nacimiento = new Date(fecha);
 
-    });
+                let edad =
+                    hoy.getFullYear() -
+                    nacimiento.getFullYear();
+
+                const diferenciaMes =
+                    hoy.getMonth() -
+                    nacimiento.getMonth();
+
+                if (
+                    diferenciaMes < 0 ||
+                    (
+                        diferenciaMes === 0 &&
+                        hoy.getDate() < nacimiento.getDate()
+                    )
+                ) {
+                    edad--;
+                }
+
+
+                // Validar mayoría de edad
+
+                if (edad < 18) {
+
+                    alert(
+                        "Debes ser mayor de edad para ingresar al curso."
+                    );
+
+                    return;
+                }
+
+
+                // Guardar el nombre
+
+                localStorage.setItem(
+                    "nombreUsuario",
+                    nombre
+                );
+
+
+                // Ir a la página de bienvenida
+
+                window.location.href = "bienvenido.html";
+
+            });
 
     </script>
 
 </body>
+
 </html>
+

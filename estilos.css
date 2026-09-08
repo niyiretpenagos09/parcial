@@ -1,3 +1,4 @@
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -58,6 +59,31 @@ select:focus {
     border-color: #d95353;
     box-shadow: 0 0 5px rgba(217, 83, 83, 0.3);
 }
+
+
+/* Opciones Estudiante / Profesor */
+
+.opciones {
+    display: flex;
+    gap: 25px;
+    margin-top: 8px;
+}
+
+.opcion {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    color: #555;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.opcion input {
+    width: auto;
+    cursor: pointer;
+}
+
 
 button {
     width: 100%;
